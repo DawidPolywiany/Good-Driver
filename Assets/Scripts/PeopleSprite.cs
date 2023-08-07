@@ -3,6 +3,7 @@ using UnityEngine;
 public class PeopleSprite : MonoBehaviour
 {
     private int vector = 1; //Move vector: 1 or -1
+
     //Start function
     private void Start()
     {

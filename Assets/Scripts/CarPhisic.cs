@@ -1,20 +1,26 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CarPhisic : MonoBehaviour
 {
-    private GameObject carSprite; //Car texture object
-    private Transform mainCamera; //Main camera transform
     //Car phisic variables
     public int yVector = 1; //Move car vector
     public float maxSpeed = 7.5f; //Max car speed
     private float carSpeed = 0f; //Car speed
     private float carRotation = 0f; //Car rotation
+    public bool handBreak = false; //If hand break on
+    //
+    private GameObject carSprite; //Car texture object
+    private Transform mainCamera; //Main camera transform
 
     //Gas pedal function
     public void Gas()
     {
-        if (carSpeed < maxSpeed) carSpeed += 0.1f; //Increase car speed
-        else carSpeed = maxSpeed; //Set max speed
+        if (!handBreak) //If hand break off
+        {
+            if (carSpeed < maxSpeed) carSpeed += 0.1f; //Increase car speed
+        }
+        if (carSpeed > maxSpeed) carSpeed = maxSpeed; //Set max speed
     }
 
     //Break pedal function
@@ -47,12 +53,12 @@ public class CarPhisic : MonoBehaviour
         transform.Translate(Vector2.up * Time.deltaTime * carSpeed * yVector); //Move car forward
         transform.Rotate(0, 0, Time.deltaTime * carSpeed * carRotation * 1.5f); //Rotate car
         //Move camera
-        if (carSprite.tag == "Player")
+        if (carSprite.tag == "Player") //If this car - Player
         {
             Vector3 newCameraPosition = mainCamera.position; //Create new camera position
             //Change position x
-            if (carSprite.transform.position.x - 0.5f > newCameraPosition.x) newCameraPosition.x = carSprite.transform.position.x - 0.5f; //Move left
-            if (carSprite.transform.position.x + 0.5f < newCameraPosition.x) newCameraPosition.x = carSprite.transform.position.x + 0.5f; //Move right
+            if (carSprite.transform.position.x - 0.65f > newCameraPosition.x) newCameraPosition.x = carSprite.transform.position.x - 0.65f; //Move left
+            if (carSprite.transform.position.x + 0.65f < newCameraPosition.x) newCameraPosition.x = carSprite.transform.position.x + 0.65f; //Move right
             newCameraPosition.y = carSprite.transform.position.y + 1.05f; //Change position y
             mainCamera.position = newCameraPosition; //Set new position
         }
@@ -60,6 +66,14 @@ public class CarPhisic : MonoBehaviour
     //Off this car
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Block" || collision.tag == "Player") this.enabled = false; //Disable "CarPhisic" component
+        if (carSprite.tag == "Player") //If this car - Player
+        {
+            if (collision.tag == "Block" || collision.tag == "Barrier")
+            {
+                this.enabled = false; //Disable "CarPhisic" component
+                SceneManager.LoadScene("LoseWindow", LoadSceneMode.Additive); //Open new scene
+            }
+        }
+        else if (collision.tag == "Player") this.enabled = false; //Disable "CarPhisic" component)
     }
 }

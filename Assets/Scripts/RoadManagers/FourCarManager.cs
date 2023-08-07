@@ -4,7 +4,6 @@ public class FourCarManager : MonoBehaviour
 {
     public GameObject[] cars = new GameObject[4]; //Car objects
     public GameObject traficLight; //Traficlight object
-    public Sprite[] carTextures = new Sprite[6]; //Car textures
     private Animator traficLightAnimator; //Traficlight animator
     private CarPhisic[] carPhisics = new CarPhisic[4]; //Car "CarPhisic" components
 
@@ -15,8 +14,7 @@ public class FourCarManager : MonoBehaviour
         for (int i = 0; i < 4; i++) //Iteration all car
         {
             carPhisics[i] = cars[i].GetComponent<CarPhisic>(); //Set car "CarPhisic" components
-            carPhisics[i].maxSpeed = Random.Range(5f, 15f); //Set random speed
-            carPhisics[i].GetComponentInChildren<SpriteRenderer>().sprite = carTextures[Random.Range(0, 6)]; //Set random sprite
+            carPhisics[i].maxSpeed = Random.Range(5f, 10f); //Set random speed
         }
         InvokeRepeating("SetNewColor", 1f, 5f); //Repeat function "SetNewColor"
     }
@@ -47,8 +45,7 @@ public class FourCarManager : MonoBehaviour
     private void SetStartPosition(int index)
     {
         cars[index].transform.Translate(Vector2.down * 24); //Move car
-        carPhisics[index].maxSpeed = Random.Range(5f, 15f); //Set random speed
-        carPhisics[index].GetComponentInChildren<SpriteRenderer>().sprite = carTextures[Random.Range(0, 6)]; //Set random sprite
+        carPhisics[index].maxSpeed = Random.Range(5f, 10f); //Set random speed
     }
     //Set new traficlight color
     private void SetNewColor ()

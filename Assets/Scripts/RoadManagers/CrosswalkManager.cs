@@ -4,7 +4,7 @@ public class CrosswalkManager : MonoBehaviour
 {
     public GameObject[] peoples = new GameObject[2]; //People objects
     private CarPhisic[] carPhisics = new CarPhisic[2]; //People "CarPhisic" components
-    private Vector3[] defaultPositions = new Vector3[2]; //People default position components
+    private Vector3[] defaultPositions = new Vector3[2]; //People default positions
 
     //Awake function
     private void Awake()
