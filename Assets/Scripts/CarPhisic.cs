@@ -5,14 +5,15 @@ public class CarPhisic : MonoBehaviour
     private GameObject carSprite; //Car texture object
     private Transform mainCamera; //Main camera transform
     //Car phisic variables
+    public float maxSpeed = 7.5f; //Max car speed
     private float carSpeed = 0f; //Car speed
     private float carRotation = 0f; //Car rotation
 
     //Gas pedal function
     public void Gas()
     {
-        if (carSpeed < 7.5f) carSpeed += 0.1f; //Increase car speed
-        else carSpeed = 7.5f; //Set max speed
+        if (carSpeed < maxSpeed) carSpeed += 0.1f; //Increase car speed
+        else carSpeed = maxSpeed; //Set max speed
     }
 
     //Break pedal function
@@ -58,6 +59,6 @@ public class CarPhisic : MonoBehaviour
     //Off this car
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Block") this.enabled = false; //Disable "CarPhisic" component
+        if (collision.tag == "Block" || collision.tag == "Player") this.enabled = false; //Disable "CarPhisic" component
     }
 }
