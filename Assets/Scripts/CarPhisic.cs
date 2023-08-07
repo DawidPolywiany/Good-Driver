@@ -5,6 +5,7 @@ public class CarPhisic : MonoBehaviour
     private GameObject carSprite; //Car texture object
     private Transform mainCamera; //Main camera transform
     //Car phisic variables
+    public int yVector = 1; //Move car vector
     public float maxSpeed = 7.5f; //Max car speed
     private float carSpeed = 0f; //Car speed
     private float carRotation = 0f; //Car rotation
@@ -43,7 +44,7 @@ public class CarPhisic : MonoBehaviour
     //Update function
     private void Update()
     {
-        transform.Translate(Vector2.up * Time.deltaTime * carSpeed); //Move car forward
+        transform.Translate(Vector2.up * Time.deltaTime * carSpeed * yVector); //Move car forward
         transform.Rotate(0, 0, Time.deltaTime * carSpeed * carRotation * 1.5f); //Rotate car
         //Move camera
         if (carSprite.tag == "Player")
