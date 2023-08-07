@@ -3,6 +3,7 @@ using UnityEngine;
 public class TwoCarManager : MonoBehaviour
 {
     public GameObject[] Cars = new GameObject[2]; //Car objects
+    public Sprite[] carTextures = new Sprite[6]; //Car textures
     private CarPhisic[] carPhisics = new CarPhisic[2]; //Car "CarPhisic" components
 
     //Awake function
@@ -12,6 +13,7 @@ public class TwoCarManager : MonoBehaviour
         {
             carPhisics[i] = Cars[i].GetComponent<CarPhisic>(); //Set car "CarPhisic" components
             carPhisics[i].maxSpeed = Random.Range(5f, 15f); //Set random speed
+            carPhisics[i].GetComponentInChildren<SpriteRenderer>().sprite = carTextures[Random.Range(0, 6)]; //Set random sprite
         }
     }
     //Update function
@@ -26,5 +28,6 @@ public class TwoCarManager : MonoBehaviour
     {
         Cars[index].transform.Translate(Vector2.down * 24); //Move car
         carPhisics[index].maxSpeed = Random.Range(5f, 15f); //Set random speed
+        carPhisics[index].GetComponentInChildren<SpriteRenderer>().sprite = carTextures[Random.Range(0, 6)]; //Set random sprite
     }
 }
